@@ -1183,6 +1183,11 @@ html:not(.hs-ready) #heirline .hf-loop .ar path { stroke-dashoffset: 0; }
 #blizz .bl-feat figure { height: 380px; } #blizz .bl-feat img { width: auto; max-width: 100%; height: 100%; object-fit: contain; border-radius: 12% / 5.8%; border: 0; }
 @media (max-width: 860px) { #blizz .bl-trio .ph { width: 36%; } }
 #companies .eyebrow { font-weight: 500; } #companies .eyebrow b { font-weight: 900; }
+
+/* share link on each project's title screen */
+.po-share { align-self: flex-start; margin: 12px 0 0; display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text); border: 1.5px solid color-mix(in srgb, var(--text) 45%, transparent); border-radius: 999px; padding: 8px 16px; font: inherit; font-weight: 800; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: background .2s ease, color .2s ease, transform .2s ease; }
+.po-share svg { width: 15px; height: 15px; }
+.po-share:hover, .po-share:focus-visible { background: var(--text); color: var(--bg); transform: translateY(-2px); outline: none; }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
@@ -2480,5 +2485,42 @@ html:not(.hs-ready) #heirline .hf-loop .ar path { stroke-dashoffset: 0; }
 })();
 </script>
 <script>(function(){ var b=document.getElementById('hfAsk'); if(!b) return; b.addEventListener('click',function(){ var d=document.querySelector('#heirline details.sp-more'); if(!d) return; d.open=true; d.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}); }); })();</script>
+<script>
+(function(){
+  var SLUG={movistar:'movistar-game-club',savphil:'savannah-philharmonic',heirline:'heirline',blizz:'bliss',delta:'delta-scad-pro',bd:'bd-scad-pro',deloitte:'deloitte-scad-pro'};
+  var ID={}; Object.keys(SLUG).forEach(function(k){ ID[SLUG[k]]=k; });
+  var ORIGIN='https://bernardoreyesgh-dot.github.io/portfolio/';
+  function rootPath(){ var p=location.pathname.replace(/index\.html$/,''); if(p.charAt(p.length-1)!=='/') p+='/'; var parts=p.split('/'); parts.pop(); if(ID[parts[parts.length-1]]) parts.pop(); return parts.join('/')+'/'; }
+  function currentId(){ var parts=location.pathname.replace(/index\.html$/,'').split('/').filter(Boolean); var last=parts[parts.length-1]; if(ID[last]) return ID[last]; var h=(location.hash||'').slice(1); return SLUG[h]?h:null; }
+  /* a direct link (…/bliss/ or …/#blizz) opens on that project, skipping the intro */
+  var start=currentId();
+  var TITLES={movistar:'Movistar Game Club',savphil:'Savannah Philharmonic',heirline:'HEIRLINE',blizz:'Bliss',delta:'Delta × SCAD Pro',bd:'BD × SCAD Pro',deloitte:'Deloitte | SCAD Pro'};
+  if(start) document.title=TITLES[start]+' · Bernardo Reyes';
+  if(start){ var touched=false, n=0;
+    ['wheel','touchstart','keydown','mousedown'].forEach(function(ev){ window.addEventListener(ev,function(){ touched=true; },{passive:true,once:true}); });
+    var go=function(){ if(touched) return; if(window.__introSkip) window.__introSkip(); var el=document.getElementById(start); if(el){ document.documentElement.style.scrollBehavior='auto'; if(Math.abs(el.getBoundingClientRect().top)>6) el.scrollIntoView(); } };
+    var iv=setInterval(function(){ go(); if(++n>16||touched){ clearInterval(iv); if(location.hash&&SLUG[location.hash.slice(1)]){ try{ history.replaceState(null,'',rootPath()+SLUG[start]+'/'); }catch(e){} } } },250); go(); }
+  /* pressing a project button sends you to that project's own address */
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-px]'); if(!a) return;
+    var id=(a.getAttribute('href')||'').slice(1);
+    try{ history.pushState({id:id},'', SLUG[id]?rootPath()+SLUG[id]+'/':rootPath()); }catch(err){}
+    document.title=TITLES[id]?TITLES[id]+' · Bernardo Reyes':'ERNIE — Service Designer Portfolio';
+  });
+  window.addEventListener('popstate',function(){
+    var id=currentId(); document.documentElement.style.scrollBehavior='auto';
+    var el=id?document.getElementById(id):null; if(el) el.scrollIntoView(); else window.scrollTo(0,0);
+  });
+  /* share button on every project title screen */
+  var icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>';
+  Object.keys(SLUG).forEach(function(id){
+    var sec=document.getElementById(id); if(!sec) return; var st=sec.querySelector('.po-stage'); if(!st||st.querySelector('.po-share')) return;
+    var b=document.createElement('button'); b.type='button'; b.className='po-share'; b.setAttribute('aria-label','Copy link to this project'); b.innerHTML=icon+'<span>Share link</span>';
+    b.addEventListener('click',function(e){ e.stopPropagation(); var lab=b.querySelector('span'); var url=ORIGIN+SLUG[id]+'/'; var done=function(){ lab.textContent='Link copied'; setTimeout(function(){ lab.textContent='Share link'; },1600); };
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(done,function(){ lab.textContent=url; }); } else { lab.textContent=url; } });
+    var rl=st.querySelector('.po-roleline'); if(rl&&rl.nextSibling) st.insertBefore(b,rl.nextSibling); else st.appendChild(b);
+  });
+})();
+</script>
 </body>
 </html>
