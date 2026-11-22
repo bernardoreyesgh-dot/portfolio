@@ -1,0 +1,232 @@
+{
+  "version": 1,
+  "nav": [
+    {
+      "label": "Home",
+      "href": "#top"
+    },
+    {
+      "label": "Projects",
+      "href": "#work"
+    },
+    {
+      "label": "About me",
+      "href": "#about"
+    },
+    {
+      "label": "CV",
+      "href": "#cv"
+    }
+  ],
+  "about": {
+    "eyebrow": "About me",
+    "title": "Systems thinker.",
+    "lead": "I am a designer who thinks that researching using human participation can stop the ambiguity of personal opinions and can prove that design could be seamless to science in the way of proving its veracity.",
+    "text": "I think in systems and see how everything interconnects, looking to be the one that designs what feels invisible…",
+    "capabilities": [
+      {
+        "title": "Languages",
+        "items": [
+          "English (C2)",
+          "Spanish (Native)",
+          "French (C1–C2)"
+        ]
+      },
+      {
+        "title": "Software",
+        "items": [
+          "Claude Code",
+          "Codex",
+          "Qualtrics",
+          "Excel",
+          "Figma",
+          "Miro",
+          "Rhino",
+          "Adobe Cloud",
+          "Photoshop",
+          "Illustrator",
+          "Premiere Pro",
+          "InDesign",
+          "Snov.io",
+          "Apollo"
+        ]
+      },
+      {
+        "title": "Soft skills",
+        "items": [
+          "Strategic Thinking",
+          "Systems Thinking",
+          "Cross-Functional Leadership",
+          "Stakeholder Management",
+          "Analytical Problem-Solving",
+          "Client Communication",
+          "Adaptability",
+          "Workshop Facilitation",
+          "Prototyping",
+          "Usability Testing",
+          "Research Synthesis",
+          "Experience Strategy"
+        ]
+      }
+    ]
+  },
+  "cv": {
+    "location": "Savannah, GA",
+    "email": "bernardoreyesgh@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/bernardogutierrezxD",
+    "sections": [
+      {
+        "title": "Education",
+        "items": [
+          {
+            "when": "Expected 06/2027",
+            "title": "B.F.A. Service Design | UX Design Minor | Business Minor",
+            "org": "Savannah College of Art and Design (SCAD) · Achievement Scholarship",
+            "note": "",
+            "bullets": [
+              "Relevant coursework: Service Blueprinting, Contextual Research Methods, Service Architecture & Ecosystems, Services & Enterprise, Experience Prototyping, Information Architecture, and UX Design Methods.",
+              "**SCAD:** a private art and design university in Savannah, Georgia, where I study Service Design.",
+              "**SCAD Pro:** SCAD’s collaborative design studio, where student teams work on real projects for client companies. Clients/partners: Delta, Deloitte, BD and Co., and AutoSol."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Work experience",
+        "items": [
+          {
+            "when": "09/2026 – 11/2026",
+            "title": "Experience Design Lead",
+            "org": "Deloitte × SCAD Pro",
+            "note": "",
+            "bullets": [
+              "Designing a consolidated single-entry system solution for a federal healthcare contact center, providing a seamless phone and web channel strategy (service blueprint), highlighting transferability of users’ history, and making it easy to find a directory by guiding users end to end.",
+              "Implementing a knowledge management chart of human capabilities, discovering the human non-negotiables (crisis line), supported by a benchmark of 60+ examples studied.",
+              "Leading research synthesis and the design process with a component-based methodology, bringing all research elements into comparable information (700 surveys, benchmark results, and journeys) and enabling solution components illustrated with a service blueprint."
+            ]
+          },
+          {
+            "when": "08/2026 – Present",
+            "title": "Student Ambassador",
+            "org": "Department of Service Design, SCAD",
+            "note": "",
+            "bullets": [
+              "Benchmarked 100+ programs in service design (Excel), leaning into SCAD’s department's current SWOT, and understanding what leaders in the field are doing differently in terms of curriculum, industry integration, and capabilities taught, pushing the goal of inspiring changes in the restructure of the program (USP of SERV)",
+              "Pitching awareness of the program with multiple school advisors, talking to undecided students, and impacting enrollment decisions by sharing major structure, previous projects, and personal experience."
+            ]
+          },
+          {
+            "when": "07/2026 – 08/2026",
+            "title": "Project Manager: Team Management & the Future of Travelling",
+            "org": "Delta × SCAD Pro",
+            "note": "",
+            "bullets": [
+              "Blueprinting solutions ideated by connecting features with the current Fly Delta app, emphasizing how data and internal advertising flows interact between actors and channels, implementing a land quiz, and shaping the continuity of the designed experience through a daily interaction between users and the app.",
+              "Coordinating action plans by turning the brief into tasks and a timeline for a group of 16, co-creating primary research (35 interviews and 150 surveys), and leading A/B testing between the proposed feature, the current interface (Mach 1), and competitors, tailoring the final argumentation to the solution presented."
+            ]
+          },
+          {
+            "when": "08/2026 – 09/2026",
+            "title": "Designer: Sprint for Design of Logo and Name",
+            "org": "AutoSol (SCAD Pro)",
+            "note": "",
+            "bullets": [],
+            "nda": "autosol"
+          },
+          {
+            "when": "03/2026 – 06/2026",
+            "title": "Project Lead: Team Leadership & Healthcare Awareness",
+            "org": "BD and Co × SCAD Pro",
+            "note": "",
+            "bullets": [],
+            "nda": "bd"
+          },
+          {
+            "when": "06/2025 – 03/2026",
+            "title": "Intern System Designer and Sales",
+            "org": "Global BMT",
+            "note": "",
+            "bullets": [
+              "Developed business-to-government proposals in collaboration with the Canadian, Colombian, Mexican, and Turkish governments, delivering 6 proposals, translating from Spanish to French documents, analyzing data and inputting in proposals, and finding USP (100k+ in generated benefit, 6 proposals sold).",
+              "Developed and prototyped a webpage strategy flow for creating proposals and finding quickly USPs to pass from 7 days to 4 hours, a contract signed, and the first stage of the project (Flow of Data) was delivered."
+            ]
+          },
+          {
+            "when": "06/2024 – 09/2024",
+            "title": "Intern Service Designer and Event Planner",
+            "org": "Movistar Game Club",
+            "note": "",
+            "bullets": [
+              "Recommending customer experience strategy for event planning, implementing user personas and behaviors into journeys (anchoring biggest motivations in value map), and testing a new stakeholder organization for task execution during events.",
+              "Organized and designed 2 high-impact events with 500+ attendees and over 1 million social media impressions, fostering community engagement, ending in sponsorships and activations by Red Bull, Lenovo, and Samsung (impacting in 150h, rented venue space)."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Extracurriculars / Involvement",
+        "items": [
+          {
+            "when": "09/2026 – 03/2027",
+            "title": "Judge Crew",
+            "org": "SCAD Start Up 2027",
+            "note": "",
+            "bullets": [
+              "Incentivized and networked with real clients across multiple U.S. enterprises (Adobe, Figma, Amazon, and others) to serve as judges for the 2027 competition."
+            ]
+          },
+          {
+            "when": "2025 – Present",
+            "title": "Service Design club · Volunteer",
+            "org": "",
+            "note": "",
+            "bullets": [
+              "Participated in holding events for graduate shows and events from the program, as well as ideating and prototyping other majors and minors or club meetings"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Skills",
+        "items": [
+          {
+            "when": "Languages",
+            "title": "",
+            "org": "",
+            "note": "",
+            "bullets": [
+              "English (C2), Spanish (Native), French (C1–C2)"
+            ]
+          },
+          {
+            "when": "Software",
+            "title": "",
+            "org": "",
+            "note": "",
+            "bullets": [
+              "Claude Code, Qualtrics, Excel, Adobe Cloud (Photoshop, Illustrator, Premier Pro, In Design), Rhino, Figma, Snov.io, Miro, Apollo and Codex"
+            ]
+          },
+          {
+            "when": "Soft skills",
+            "title": "",
+            "org": "",
+            "note": "",
+            "bullets": [
+              "Strategic Thinking, Systems Thinking, Cross-Functional Leadership, Stakeholder Management, Analytical Problem-Solving, Client Communication, Adaptability, Workshop Facilitation, Prototyping, Usability Testing, Research Synthesis, and Experience Strategy."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Under NDA",
+    "title": "Let’s talk.",
+    "lead": "Contact me to discuss the projects I can’t show here.",
+    "email": "bernardoreyesgh@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/bernardogutierrezxD",
+    "footer": "ERNIE · Portfolio: Service Designer, Systems thinking"
+  },
+  "projects": []
+}

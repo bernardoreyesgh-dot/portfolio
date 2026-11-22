@@ -1195,6 +1195,15 @@ html:not(.hs-ready) #heirline .hf-loop .ar path { stroke-dashoffset: 0; }
 .po-share { align-self: flex-start; margin: 12px 0 0; display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text); border: 1.5px solid color-mix(in srgb, var(--text) 45%, transparent); border-radius: 999px; padding: 8px 16px; font: inherit; font-weight: 800; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: background .2s ease, color .2s ease, transform .2s ease; }
 .po-share svg { width: 15px; height: 15px; }
 .po-share:hover, .po-share:focus-visible { background: var(--text); color: var(--bg); transform: translateY(-2px); outline: none; }
+/* projects added from the admin page */
+.np { background: var(--bg); }
+.np .np-text p { max-width: 760px; font-size: clamp(17px,1.6vw,20px); margin: 0 0 14px; }
+.np .np-cover { margin: 26px 0 28px; }
+.np .np-cover img, .np .np-imgs img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.np .np-imgs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin: 18px 0 8px; align-items: start; }
+.np figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+.np .np-back { margin-top: 40px; font-weight: 700; } .np .np-back a { text-decoration: none; }
+.orow.r-new { background: #f6efe6; border-color: #0b0b0b; color: #0b0b0b; } .orow.r-new .on { color: #d6271c; }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
@@ -2527,6 +2536,78 @@ html:not(.hs-ready) #heirline .hf-loop .ar path { stroke-dashoffset: 0; }
       if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(done,function(){ lab.textContent=url; }); } else { lab.textContent=url; } });
     var rl=st.querySelector('.po-roleline'); if(rl&&rl.nextSibling) st.insertBefore(b,rl.nextSibling); else st.appendChild(b);
   });
+})();
+</script>
+<script>
+/* content loader: reads content.json (edited from /admin/) and updates menu, about, CV, contact and extra projects.
+   If the file cannot be loaded, the page keeps the text it already contains. */
+(function(){
+  var ORIGIN='https://bernardoreyesgh-dot.github.io/portfolio/';
+  var BASE=(location.protocol==='file:')?'':ORIGIN;
+  function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function md(t){ return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>'); }
+  function paras(t){ return String(t||'').split(/\n\s*\n/).filter(function(p){return p.trim();}).map(function(p){return '<p>'+md(p.trim()).replace(/\n/g,'<br>')+'</p>';}).join(''); }
+  function url(p){ return /^(https?:|data:)/.test(p)?p:ORIGIN+String(p).replace(/^\//,''); }
+  var NDA='<li>Details under NDA. <a href="#delta" data-px>Enter the password</a> in a locked project above to read them.</li>';
+  function $(s,r){ return (r||document).querySelector(s); }
+  function renderNav(d){
+    var ul=$('nav.site .pill ul'); if(!ul||!d.nav||!d.nav.length) return;
+    ul.innerHTML=d.nav.map(function(n){ var ext=/^https?:/.test(n.href); var local=/^#(top|work|about|cv|contact|movistar|savphil|heirline|blizz|delta|bd|deloitte)$/.test(n.href);
+      return '<li><a href="'+esc(n.href)+'"'+(ext?' target="_blank" rel="noopener"':'')+(local?' data-px':'')+'>'+esc(n.label)+'</a></li>'; }).join('');
+  }
+  function renderAbout(d){
+    var a=d.about, sec=$('#about'); if(!a||!sec) return;
+    var e=$('.eyebrow',sec); if(e&&a.eyebrow!=null) e.textContent=a.eyebrow;
+    var h=$('h2',sec); if(h&&a.title!=null) h.textContent=a.title;
+    var l=$('.serif-lead',sec); if(l&&a.lead!=null) l.innerHTML=md(a.lead);
+    var p=$('.about-p',sec); if(p&&a.text!=null) p.innerHTML=md(a.text);
+    var caps=$('.caps',sec); if(caps&&a.capabilities) caps.innerHTML=a.capabilities.map(function(c,i){
+      return '<div class="cap'+(i>=2?' wide':'')+'"><h4>'+esc(c.title)+'</h4><div class="chips">'+(c.items||[]).map(function(x){return '<span>'+esc(x)+'</span>';}).join('')+'</div></div>'; }).join('');
+  }
+  function renderCV(d){
+    var c=d.cv, sec=$('#cv'); if(!c||!sec) return;
+    var wrap=$('.wrap',sec), head=$('.cv-head',sec); if(!wrap||!head) return;
+    var ct=$('.cv-contact',head);
+    if(ct) ct.innerHTML=esc(c.location)+'<br><a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a><br><a href="'+esc(c.linkedin)+'" target="_blank" rel="noopener">'+esc(String(c.linkedin).replace(/^https?:\/\/(www\.)?/,''))+'</a>';
+    var html=(c.sections||[]).map(function(s){
+      return '<h3 class="cv-h">'+esc(s.title)+'</h3>'+(s.items||[]).map(function(it){
+        var body='';
+        if(it.title) body+='<h4>'+esc(it.title)+(it.note?' <span class="cv-note">('+esc(it.note)+')</span>':'')+'</h4>';
+        if(it.org) body+='<p class="cv-org">'+esc(it.org)+'</p>';
+        if(it.nda) body+='<ul data-cv="'+esc(it.nda)+'">'+NDA+'</ul>';
+        else if(it.bullets&&it.bullets.length) body+='<ul>'+it.bullets.map(function(b){return '<li>'+md(b)+'</li>';}).join('')+'</ul>';
+        return '<article class="cv-item"><div class="cv-when">'+esc(it.when)+'</div><div class="cv-body">'+body+'</div></article>'; }).join(''); }).join('');
+    Array.prototype.slice.call(wrap.children).forEach(function(ch){ if(ch!==head) ch.remove(); });
+    head.insertAdjacentHTML('afterend',html);
+  }
+  function renderContact(d){
+    var c=d.contact; if(!c) return; var sec=$('#contact'); 
+    if(sec){ var e=$('.eyebrow',sec); if(e) e.textContent=c.eyebrow; var h=$('h2',sec); if(h) h.textContent=c.title; var l=$('.lead',sec); if(l) l.textContent=c.lead;
+      var m=$('.mailbtn:not(.ghost)',sec); if(m){ m.href='mailto:'+c.email; m.innerHTML=esc(c.email)+' <i aria-hidden="true">↗</i>'; }
+      var g=$('.mailbtn.ghost',sec); if(g) g.href=c.linkedin; }
+    var f=$('footer .wrap'); if(f&&c.footer) f.textContent=c.footer;
+  }
+  function renderProjects(d){
+    var list=d.projects||[]; if(!list.length) return;
+    var ovw=$('#work .ovw'), anchor=$('#about');
+    var rows='', secs='';
+    list.forEach(function(p,i){
+      rows+='<a class="orow r-new" href="#p-'+esc(p.id)+'"><span class="on">'+(8+i)+'.</span><span class="ol"><span class="owm">'+esc(p.title)+'</span><small>'+esc(p.tagline)+'</small></span><span class="os">'+esc(p.year)+'</span><span class="or">'+(p.role?'<b>'+esc(p.role)+'</b>':'')+'</span></a>';
+      var s='<section id="p-'+esc(p.id)+'" class="np"><div class="wrap"><p class="eyebrow">'+esc([p.year,p.role].filter(Boolean).join(' · '))+'</p><h2>'+esc(p.title)+'</h2>';
+      if(p.tagline) s+='<p class="lead">'+esc(p.tagline)+'</p>';
+      if(p.cover&&p.cover.src) s+='<figure class="np-cover"><img src="'+esc(url(p.cover.src))+'" alt="'+esc(p.cover.alt||p.title)+'" loading="lazy"></figure>';
+      if(p.summary) s+='<div class="np-text">'+paras(p.summary)+'</div>';
+      (p.sections||[]).forEach(function(sc){
+        s+='<h3 class="sub">'+esc(sc.heading)+'</h3>'+(sc.text?'<div class="np-text">'+paras(sc.text)+'</div>':'');
+        if(sc.images&&sc.images.length) s+='<div class="np-imgs">'+sc.images.map(function(im){ return '<figure><img src="'+esc(url(im.src))+'" alt="'+esc(im.alt||im.caption||sc.heading)+'" loading="lazy">'+(im.caption?'<figcaption>'+esc(im.caption)+'</figcaption>':'')+'</figure>'; }).join('')+'</div>'; });
+      s+='<p class="np-back"><a href="#work">← All projects</a></p></div></section>'; secs+=s; });
+    if(ovw) ovw.insertAdjacentHTML('beforeend','<h3 class="ovw-title">More work:</h3>'+rows);
+    if(anchor) anchor.insertAdjacentHTML('beforebegin',secs);
+    var h=(location.hash||'').slice(1); if(h.indexOf('p-')===0){ var el=document.getElementById(h); if(el){ setTimeout(function(){ if(window.__introSkip) window.__introSkip(); document.documentElement.style.scrollBehavior='auto'; el.scrollIntoView(); },300); } }
+  }
+  fetch(BASE+'content.json',{cache:'no-cache'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+    [renderNav,renderAbout,renderCV,renderContact,renderProjects].forEach(function(fn){ try{ fn(d); }catch(e){ if(window.console) console.warn('content',fn.name,e); } });
+  }).catch(function(){});
 })();
 </script>
 </body>
